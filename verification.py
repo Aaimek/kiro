@@ -29,20 +29,22 @@ def sol_primaire(j):
         avancement_job[elem["job"]] = 0
         tete[elem["job"]] = 0
         temps_restant[elem["job"]] = elem["due_date"]
-    
-    while len(task_finies)<len(tasks):
-        i += 1
+
+    while len(task_finies) < len(tasks):
         for elem in jobs:
             tete[elem["job"]] = elem["sequence"][avancement_job[elem["job"]]]
-        
+
         # update de temps des tasks et finir celles qui sont finies
-        tasks_finies, tasks_en_cours = update_tasks(task_finies, tasks_en_cours)
+        tasks_finies, tasks_en_cours = update_tasks(
+            task_finies, tasks_en_cours)
         # choisir lesquelles a start
         tasks_to_start = select_jobs(tasks_en_cours, jobs, tasks, tete)
         # start les tasks en question
         tasks_en_cours = start_tasks(tasks_to_start, tasks_en_cours, tasks)
         # ecrire les dates des tasks qu'on a commencé
         solution = write_solution(tasks_to_start, solution, i)
+        avancement_job[elem["job"]] += 1
+        i += 1
 
     json_sol = json.dumps(solution)
     with open("solution.json", "w") as outfile:
