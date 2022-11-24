@@ -27,7 +27,7 @@ def select_jobs(tasks_en_cours, jobs, tasks, tete, i):
         job_id = 0
         for k in range(len(jobs)):
             if task_index in jobs[k]['sequence']:
-                job_id = (k+1)
+                job_id = k
 
         for machine in task['machines']:
             machine_id = machine['machine']
