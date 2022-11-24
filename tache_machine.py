@@ -3,10 +3,19 @@ f = open('instances/tiny.json')
 j = json.load(f)
 
 
+def nb_machines(dic):
+    nb = 0
+    list_tasks = dic["tasks"]
+    for x in list_tasks:
+        nb = max(nb, x["machines"]["machine"])
+    return nb
+
+
 def taches_machines(dic):
+    nb = nb_machines(dic)
     list_tasks = dic["tasks"]
     d = {}
-    for i in range(1, 26):
+    for i in range(1, (nb+1)):
         d[i] = []
     for tache in list_tasks:
         num_tache = tache["task"]
@@ -25,7 +34,4 @@ def rarete_machine(taches_machines):
                 d[machine] += 1
             else:
                 d[machine] = 0
-    print(d)
-
-
-rarete_machine(taches_machines(j))
+    return (d)
