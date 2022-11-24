@@ -11,7 +11,8 @@
 #                             'operator': 8
 #                         }]
 
-def select_jobs(tasks_en_cours, jobs, tasks, tete):
+
+def select_jobs(tasks_en_cours, jobs, tasks, tete, i):
     tasks_to_start = []
     operateurs_indispo = [task['operator'] for task in tasks_en_cours]
 
@@ -23,32 +24,36 @@ def select_jobs(tasks_en_cours, jobs, tasks, tete):
 
         # machine libre?
         machines_indispo = [task['machine'] for task in tasks_en_cours]
+        job_id = 0
+        for k in range(len(jobs)):
+            if task_index in jobs_dic[k]['sequence']:
+                job_id = (k+1)
 
         for machine in task['machines']:
             machine_id = machine['machine']
-            if not(machine_id in machines_indispo):
+            if not (machine_id in machines_indispo):
 
                 # operateur libre?
                 operateurs_possibles = machine['operators']
-                
-                for operateur in operateurs_possibles:
-                    if not(operateur in operateurs_indispo):
 
-                        # On a une machine et un operateur qulifie dispo!
-                        # on ajoute donc bêtement la tâche
-                        # print(f'opérateur séléctionné: {operateur}')
-                        # print(f'machine séléctionnée: {machine_id}')
-                        task_to_start = {
-                            'task': task_index,
-                            'machine': machine_id,
-                            'operator': operateur
-                        }
-                        tasks_to_start.append(task_to_start)
-                        # LOPERATEUR EST PLUS DISPO DU COUP!!!
-                        # print(f'lopérateur {operateur} nest maintenant plus dispo')
-                        operateurs_indispo.append(operateur)
+                for operateur in operateurs_possibles:
+                    if not (operateur in operateurs_indispo):
+                        if i >= jobs[job_id]["release_date"]:
+                            # On a une machine et un operateur qulifie dispo!
+                            # on ajoute donc bêtement la tâche
+                            # print(f'opérateur séléctionné: {operateur}')
+                            # print(f'machine séléctionnée: {machine_id}')
+                            task_to_start = {
+                                'task': task_index,
+                                'machine': machine_id,
+                                'operator': operateur
+                            }
+                            tasks_to_start.append(task_to_start)
+                            # LOPERATEUR EST PLUS DISPO DU COUP!!!
+                            # print(f'lopérateur {operateur} nest maintenant plus dispo')
+                            operateurs_indispo.append(operateur)
                         break
                 break
         continue
-        
+
     return tasks_to_start
