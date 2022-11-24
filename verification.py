@@ -16,25 +16,24 @@ def sol_primaire(j):
     d = {}
     i = 0
     jobs = data["jobs"]
-    task_finish = []
     tete = {}
     avancement_job = {}
     temps_restant = {}
     poids_tache_restante = {}
     operateur_pas_dispo = []
-    task_finies = []
     tasks_en_cours = []
     tasks = data['tasks']
     solution = []
+    tasks_finies = []
 
     for elem in jobs:
         avancement_job[elem["job"]] = 0
         tete[elem["job"]] = 0
         temps_restant[elem["job"]] = elem["due_date"]
 
-    while len(task_finies) < len(tasks):
+    while len(tasks_finies) < len(tasks):
         i += 1
-        pdb.set_trace()
+        # pdb.set_trace()
         # print(f'avancement: \n {avancement_job}')
 
         for elem in jobs:
@@ -43,17 +42,25 @@ def sol_primaire(j):
             # print(f'avancement du job {job_index} = {avancement}')
             tete[job_index] = elem["sequence"][avancement]
 
-        # update de temps des tasks et finir celles qui sont finies
-        tasks_finies, tasks_en_cours = update_tasks(task_finies, tasks_en_cours)
         # choisir lesquelles a start
         tasks_to_start = select_jobs(tasks_en_cours, jobs, tasks, tete)
         # start les tasks en question
+        print(f'tasks en cours: {tasks_en_cours}')
+        print(f'tete {tete}')
+        print(f'tasks to start: {tasks_to_start}')
+        print(f'avancement: {avancement_job}')
         tasks_en_cours = start_tasks(tasks_to_start, tasks_en_cours, tasks)
+        print(f'tasks en cours: {tasks_en_cours}')
         #mettre a jour l'avance,ent
         
         # print(f'tete: {tete}')
         # print(f'tasks en cours: \n {tasks_en_cours}')
         avancement_job = update_avancement(avancement_job, tasks_en_cours, jobs)
+
+        # update de temps des tasks et finir celles qui sont finies
+        tasks_finies, tasks_en_cours = update_tasks(tasks_finies, tasks_en_cours)
+
+        # print(f'avancement job depuis le main: {avancement_job}')
         # ecrire les dates des tasks qu'on a commencé
         solution = write_solution(tasks_to_start, solution, i)
 
