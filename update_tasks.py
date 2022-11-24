@@ -30,4 +30,4 @@ def update_tasks(task_finies, tasks_en_cours):
         else:
             task['temps-avant-fin'] -= 1
 
-        return task_finies, tasks_en_cours
+    return task_finies, tasks_en_cours
