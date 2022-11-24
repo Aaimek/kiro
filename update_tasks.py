@@ -6,13 +6,13 @@
 #         'task': 3,
 #         'temps-avant-fin': 2,
 #         'machine': 7,
-#         'operateur': 9
+#         'operator': 9
 #     },
 #     {
 #         'task': 5,
 #         'temps-avant-fin': 1,
 #         'machine': 4,
-#         'operateur': 11
+#         'operateor': 11
 #     }
 # ]
 
