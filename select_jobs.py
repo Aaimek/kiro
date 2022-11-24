@@ -42,5 +42,7 @@ def select_jobs(tasks_en_cours, jobs, tasks, tete):
                             'operator': operateur
                         }
                         tasks_to_start.append(task_to_start)
+                        break
+                break
         
     return tasks_to_start
