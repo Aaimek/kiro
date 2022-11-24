@@ -2,6 +2,8 @@ import json
 import pandas as pd
 from write_solution import write_solution
 from update_tasks import update_tasks
+from select_jobs import select_jobs
+
 f = open('instances/tiny.json')
 data = json.load(f)
 
@@ -27,3 +29,6 @@ def sol_primaire(j):
         i += 1
         for elem in jobs:
             tete[elem["job"]] = elem["sequence"][avancement_job[elem["job"]]]
+        
+        # fdfdf
+        tasks_finies, tasks_en_cours = update_tasks(task_finies, tasks_en_cours)

@@ -14,12 +14,13 @@ def select_jobs(tasks_en_cours, jobs, tasks, tete):
         # machine libre?
         machines_indispo = [task['machine'] for task in tasks_en_cours]
         for machine in task['machines']:
-            if not(machine in machines_indisponible(tasks_en_cours)):
+            if not(machine in machines_indispo(tasks_en_cours)):
 
                 # operateur libre?
+                operateurs_possibles = machine['operators']
                 operateurs_indispo = [task['operator'] for task in tasks_en_cours]
-                operateurs_qualifies = operateurs_qualifies(machine)
-                for operateur in operateurs_qualifies:
+                
+                for operateur in operateurs_possibles:
                     if not(operateur in operateurs_indispo):
 
                         # On a une machine et un operateur qulifie dispo!
@@ -30,3 +31,5 @@ def select_jobs(tasks_en_cours, jobs, tasks, tete):
                             'operator': operateur
                         }
                         tasks_to_start.append(task_to_start)
+        
+    return tasks_to_start
