@@ -13,9 +13,12 @@
 
 def select_jobs(tasks_en_cours, jobs, tasks, tete):
     tasks_to_start = []
+    operateurs_indispo = [task['operator'] for task in tasks_en_cours]
 
     # pour chaque tache dans le tete
-    for task_index in tete:
+    tetes = [tete[v] for v in range(1, len(tete)+1)]
+    print(tetes)
+    for task_index in tetes:
         task = tasks[task_index]
 
         # machine libre?
@@ -27,7 +30,6 @@ def select_jobs(tasks_en_cours, jobs, tasks, tete):
 
                 # operateur libre?
                 operateurs_possibles = machine['operators']
-                operateurs_indispo = [task['operator'] for task in tasks_en_cours]
                 
                 for operateur in operateurs_possibles:
                     if not(operateur in operateurs_indispo):
@@ -42,7 +44,11 @@ def select_jobs(tasks_en_cours, jobs, tasks, tete):
                             'operator': operateur
                         }
                         tasks_to_start.append(task_to_start)
+                        # LOPERATEUR EST PLUS DISPO DU COUP!!!
+                        # print(f'lopérateur {operateur} nest maintenant plus dispo')
+                        operateurs_indispo.append(operateur)
                         break
                 break
+        continue
         
     return tasks_to_start

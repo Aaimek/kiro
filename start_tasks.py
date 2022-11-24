@@ -1,4 +1,5 @@
 def start_tasks(tasks_to_start, tasks_en_cours, tasks):
+    
     for task in tasks_to_start:
         index = task['task']
         real_task = tasks[index]
