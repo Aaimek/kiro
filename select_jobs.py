@@ -5,11 +5,11 @@
 # tete
 
 # Output:
-# task_to_start = {
+# task_to_start = [{
 #                             'task': 2,
 #                             'machine': 7,
 #                             'operator': 8
-#                         }
+#                         }]
 
 def select_jobs(tasks_en_cours, jobs, tasks, tete):
     tasks_to_start = []
@@ -34,8 +34,8 @@ def select_jobs(tasks_en_cours, jobs, tasks, tete):
 
                         # On a une machine et un operateur qulifie dispo!
                         # on ajoute donc bêtement la tâche
-                        print(f'opérateur séléctionné: {operateur}')
-                        print(f'machine séléctionnée: {machine_id}')
+                        # print(f'opérateur séléctionné: {operateur}')
+                        # print(f'machine séléctionnée: {machine_id}')
                         task_to_start = {
                             'task': task_index,
                             'machine': machine_id,
